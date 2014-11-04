@@ -6,7 +6,6 @@
   # and 'labels' must be specified as a vector and will be
   # converted into list format programmatically.
 
-  require(ROCR)
   .vec_to_list <- function(idxs, vec){
     return(vec[idxs])
   }

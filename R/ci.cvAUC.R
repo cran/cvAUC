@@ -1,9 +1,8 @@
-ci.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = NULL, confidence = 0.95){
+ci.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = NULL, confidence = 0.95) {
 
-  require(ROCR)
   clean <- .process_input(predictions, labels, label.ordering, folds=folds, ids=NULL, confidence=confidence)
-  predictions <- clean$predictions
-  labels <- clean$labels
+  predictions <- clean$predictions  #Length-V list of predicted values
+  labels <- clean$labels  #Length-V list of true labels
   pos <- levels(labels[[1]])[[2]]
   neg <- levels(labels[[1]])[[1]]  
   n.obs <- length(unlist(labels))
@@ -11,8 +10,7 @@ ci.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = NULL, c
   w1 <- 1/(sum(unlist(labels)==pos)/n.obs)  #Positive class
   w0 <- 1/(sum(unlist(labels)==neg)/n.obs)  #Negative class
   
-  .IC <- function(predictions, labels, pos, neg, w1, w0){
-    
+  .IC <- function(predictions, labels, pos, neg, w1, w0) {  
     n.rows <- length(labels)
     n.pos <- sum(labels==pos)
     n.neg <- n.rows - n.pos

@@ -1,18 +1,17 @@
-ci.pooled.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = NULL, ids, confidence = 0.95){
+ci.pooled.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = NULL, ids, confidence = 0.95) {
 
-  require(ROCR)
-  clean <- .process_input(predictions, labels, label.ordering, folds=folds, ids=ids, confidence=confidence)
-  predictions <- clean$predictions
-  labels <- clean$labels
-  ids <- clean$ids
-  pos <- levels(labels[[1]])[[2]]
-  neg <- levels(labels[[1]])[[1]]  
-  n.obs <- length(unlist(labels))
-  n.ids <- length(unique(unlist(ids)))
-  taubar <- mean(table(unlist(ids)))  #Avg number of obs per id
-  # Inverse probability weights across entire data set
-  w1 <- 1/(sum(unlist(labels)==pos)/n.obs)  #Positive class
-  w0 <- 1/(sum(unlist(labels)==neg)/n.obs)  #Negative class
+    clean <- .process_input(predictions, labels, label.ordering, folds=folds, ids=ids, confidence=confidence)
+    predictions <- clean$predictions
+    labels <- clean$labels
+    ids <- clean$ids
+    pos <- levels(labels[[1]])[[2]]
+    neg <- levels(labels[[1]])[[1]]  
+    n.obs <- length(unlist(labels))
+    n.ids <- length(unique(unlist(ids)))
+    taubar <- mean(table(unlist(ids)))  #Avg number of obs per id
+                                        # Inverse probability weights across entire data set
+    w1 <- 1/(sum(unlist(labels)==pos)/n.obs)  #Positive class
+    w0 <- 1/(sum(unlist(labels)==neg)/n.obs)  #Negative class
   
   .IC.pooled <- function(predictions, labels, ids, taubar, pos, neg, w1, w0){
     

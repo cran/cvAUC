@@ -74,12 +74,11 @@ Mark van der Laan \email{laan@berkeley.edu}
 # 
 # The cross-validation folds are stratified by ids that have at least one 
 # positive outcome.  All observations belonging to one patient are
-# conatained within the save CV fold.
+# contained within the save CV fold.
 
 
 pooled_example <- function(data, ids, V=10){
 
-  require(cvAUC)
   .cvFolds <- function(Y, V, ids){
     #Stratify by outcome & id
     classes <- tapply(1:length(Y), INDEX=Y, FUN=split, 1)
@@ -103,7 +102,8 @@ pooled_example <- function(data, ids, V=10){
   folds <- .cvFolds(Y=data$Y, ids=ids, V=V)  #Create folds
   predictions <- unlist(sapply(seq(V), .doFit, folds=folds, data=data))  #CV train/predict
   predictions[unlist(folds)] <- predictions  #Re-order fold indices
-  out <- ci.pooled.cvAUC(predictions=predictions, labels=data$Y, folds=folds, ids=ids, confidence=0.95)
+  out <- ci.pooled.cvAUC(predictions=predictions, labels=data$Y, 
+  folds=folds, ids=ids, confidence=0.95)
   return(out)
 }
 

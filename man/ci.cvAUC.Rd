@@ -76,9 +76,9 @@ Mark van der Laan \email{laan@berkeley.edu}
 # The concatenated version of these predicted values is stored in vector called predictions.  
 # The outcome vector, Y, is the labels argument. 
 
+
 iid_example <- function(data, V=10){
 
-  require(cvAUC)
   .cvFolds <- function(Y, V){  #Create CV folds (stratify by outcome)
     Y0 <- split(sample(which(Y==0)), rep(1:V, length=length(which(Y==0))))
     Y1 <- split(sample(which(Y==1)), rep(1:V, length=length(which(Y==1))))
