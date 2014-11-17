@@ -1,6 +1,8 @@
 ci.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = NULL, confidence = 0.95) {
 
-  clean <- .process_input(predictions, labels, label.ordering, folds=folds, ids=NULL, confidence=confidence)
+  clean <- .process_input(predictions = predictions, labels = labels, 
+                          label.ordering = label.ordering, folds = folds,
+                          ids = NULL, confidence = confidence)
   predictions <- clean$predictions  #Length-V list of predicted values
   labels <- clean$labels  #Length-V list of true labels
   pos <- levels(labels[[1]])[[2]]
@@ -17,7 +19,7 @@ ci.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = NULL, c
     .empr <- function(x,Y){
       ifelse(Y==pos, sum(predictions[which(labels==neg)]<x)/n.neg, sum(predictions[which(labels==pos)]>x)/n.pos)
     }
-    auc <- cvAUC(predictions, labels)$cvAUC
+    auc <- AUC(predictions, labels)
     .ic <- function(r, predictions, labels, pos, neg, w1, w0, auc){  #Influence function
       ifelse(labels[r]==pos, w1*.empr(predictions[r], pos) - w1*auc, w0*.empr(predictions[r], neg) - w0*auc)
     } 

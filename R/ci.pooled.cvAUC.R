@@ -1,17 +1,19 @@
 ci.pooled.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = NULL, ids, confidence = 0.95) {
 
-    clean <- .process_input(predictions, labels, label.ordering, folds=folds, ids=ids, confidence=confidence)
-    predictions <- clean$predictions
-    labels <- clean$labels
-    ids <- clean$ids
-    pos <- levels(labels[[1]])[[2]]
-    neg <- levels(labels[[1]])[[1]]  
-    n.obs <- length(unlist(labels))
-    n.ids <- length(unique(unlist(ids)))
-    taubar <- mean(table(unlist(ids)))  #Avg number of obs per id
-                                        # Inverse probability weights across entire data set
-    w1 <- 1/(sum(unlist(labels)==pos)/n.obs)  #Positive class
-    w0 <- 1/(sum(unlist(labels)==neg)/n.obs)  #Negative class
+  clean <- .process_input(predictions = predictions, labels = labels, 
+                          label.ordering = label.ordering, folds = folds,
+                          ids = ids, confidence = confidence)
+  predictions <- clean$predictions
+  labels <- clean$labels
+  ids <- clean$ids
+  pos <- levels(labels[[1]])[[2]]
+  neg <- levels(labels[[1]])[[1]]  
+  n.obs <- length(unlist(labels))
+  n.ids <- length(unique(unlist(ids)))
+  taubar <- mean(table(unlist(ids)))  #Avg number of obs per id
+  # Inverse probability weights across entire data set
+  w1 <- 1/(sum(unlist(labels)==pos)/n.obs)  #Positive class
+  w0 <- 1/(sum(unlist(labels)==neg)/n.obs)  #Negative class
   
   .IC.pooled <- function(predictions, labels, ids, taubar, pos, neg, w1, w0){
     
@@ -21,7 +23,7 @@ ci.pooled.cvAUC <- function(predictions, labels, label.ordering = NULL, folds = 
     .empr <- function(x,Y){
       ifelse(Y==pos, sum(predictions[which(labels==neg)]<x)/n.neg, sum(predictions[which(labels==pos)]>x)/n.pos)
     }
-    auc <- cvAUC(predictions, labels)$cvAUC
+    auc <- AUC(predictions, labels)
     .ic <- function(r, predictions, labels, pos, neg, w1, w0, auc){  #Influence function
       ifelse(labels[r]==pos, w1*.empr(predictions[r], pos) - w1*auc, w0*.empr(predictions[r], neg) - w0*auc)
     } 

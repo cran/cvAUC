@@ -4,6 +4,14 @@
 To Do
 -----------------
 * Finish re-writing `ci.cvAUC` and `ci.pooled.cvAUC` functions to use data.table sorting, which speeds up these functions by many orders of magnitude. 
+* Consider automatically converting `labels` or `predictions` to a vector if it's a 1-column data.frame.  Otherwise, it will fail the check that `length(unique(labels)) == 2` and `length(predictions) == length(labels)`.
+
+
+cvAUC 1.0.2 (11-17-2014)
+-----------------
+* Modified the `AUC` function to be able to use the `label.ordering` argument, similar to `cvAUC`.
+* Made a few small edits to `ci.cvAUC` and `ci.pooled.cvAUC` functions as well as `.process_input`.
+* Changed license to Apache 2.0.
 
 
 cvAUC 1.0.1 (11-04-2014)
@@ -14,7 +22,6 @@ cvAUC 1.0.1 (11-04-2014)
 * Prepended the `ROCR` package name to the `ROCR::performance` and `ROCR::prediction` functions inside the `AUC` and `cvAUC` functions.
 * Removed `require(ROCR)` from functions since ROCR is a required dependency.
 * Switched versioning convention from -0 to .0 in third digit.
-
 
 
 cvAUC 1.0-0 (12-06-2012)

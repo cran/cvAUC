@@ -1,11 +1,11 @@
 \name{AUC}
 \alias{AUC}
-\title{Area Under the Curve}
+\title{Area Under the ROC Curve}
 \description{
 This function calculates Area Under the ROC Curve (AUC).  The AUC can be defined as the probability that the fit model will score a randomly drawn positive sample higher than a randomly drawn negative sample.  This is also equal to the value of the Wilcoxon-Mann-Whitney statistic.  This function is a wrapper for functions from the ROCR package.
 }
 \usage{
-AUC(predictions, labels)
+AUC(predictions, labels, label.ordering = NULL)
 }
 \arguments{
   \item{predictions}{
@@ -13,6 +13,9 @@ A vector of predictions, or predicted probabilities, for each observation.
 }
   \item{labels}{
 A binary vector containing the true values for each observation.  Must have the same length as \code{predictions}.
+}
+  \item{label.ordering}{
+The default ordering of the classes can be changed by supplying a vector containing the negative and the positive class label (negative label first, positive label second).
 }
 }
 \value{

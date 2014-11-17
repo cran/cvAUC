@@ -6,8 +6,8 @@
 This function calculates influence curve based confidence intervals for cross-validated area under the curve (AUC) estimates, for a pooled repeated measures data set.
 }
 \usage{
-ci.pooled.cvAUC(predictions, labels, label.ordering = NULL, folds = NULL, ids,
-confidence = 0.95)
+ci.pooled.cvAUC(predictions, labels, label.ordering = NULL, 
+  folds = NULL, ids, confidence = 0.95)
 }
 \arguments{
   \item{predictions}{

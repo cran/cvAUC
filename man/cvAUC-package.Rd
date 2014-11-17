@@ -4,16 +4,15 @@
 \docType{package}
 \title{Cross-Validated Area Under the ROC Curve Confidence Intervals}
 \description{
-This package contains various tools for working with and evaluating cross-validated area under the ROC curve (AUC) estimators.  The primary functions of the package are \code{ci.cvAUC} and \cr
-\code{ci.pooled.cvAUC}, which compute confidence intervals for cross-validated AUC estimates based on influence curves of both regular i.i.d and pooled repeated measures data.  One benefit to using influence function based confidence intervals is that they require much less computation time than bootstrapping methods.  The utility function, \code{cvAUC}, which computes cross-validated AUC, is a wrapper for functions from the ROCR package.
+This package contains various tools for working with and evaluating cross-validated area under the ROC curve (AUC) estimators.  The primary functions of the package are \code{ci.cvAUC} and \code{ci.pooled.cvAUC}, which compute confidence intervals for cross-validated AUC estimates based on influence curves of both regular i.i.d and pooled repeated measures data.  One benefit to using influence function based confidence intervals is that they require much less computation time than bootstrapping methods.  The utility function, \code{cvAUC}, which computes cross-validated AUC, is a wrapper for functions from the ROCR package.
 }
 \details{
 \tabular{ll}{
 Package: \tab cvAUC\cr
 Type: \tab Package\cr
-Version: \tab 1.0-0\cr
-Date: \tab 2012-12-06\cr
-License: \tab GPL (>= 2)\cr
+Version: \tab 1.0.2\cr
+Date: \tab 2014-11-17\cr
+License: \tab Apache License (== 2.0)\cr
 }
 See the help files for the following functions for more information:
 
@@ -31,6 +30,10 @@ LeDell, Erin; Petersen, Maya L.; and van der Laan, Mark J., ``Computationally Ef
 M. J. van der Laan and S. Rose. Targeted Learning: Causal Inference for Observational and Experimental Data. Springer Series in Statistics. Springer, first edition, 2011.
 
 Tobias Sing, Oliver Sander, Niko Beerenwinkel, and Thomas Lengauer. ROCR: Visualizing classifier performance in R. Bioinformatics, 21(20):3940-3941, 2005.
+}
+
+\note{
+This work was supported by the Doris Duke Charitable Foundation Grant #: 2011042
 }
 
 \seealso{
