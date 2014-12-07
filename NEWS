@@ -3,8 +3,16 @@
 
 To Do
 -----------------
-* Finish re-writing `ci.cvAUC` and `ci.pooled.cvAUC` functions to use data.table sorting, which speeds up these functions by many orders of magnitude. 
 * Consider automatically converting `labels` or `predictions` to a vector if it's a 1-column data.frame.  Otherwise, it will fail the check that `length(unique(labels)) == 2` and `length(predictions) == length(labels)`.
+
+
+cvAUC 1.1.0 (12-07-2014)
+-----------------
+* Major rewrite of `ci.cvAUC` and `ci.pooled.cvAUC` to improve runtime performance by many orders of magnitude.
+* The package now depends on the `data.table` package.
+* Thanks to David Rosenberg for the suggestion to use `data.table` sorting.
+* Note that `R CMD CHECK` will produce a note mentioning "No visible binding for global variable..." for several lines in the `data.table`-related code.  This is nothing to worry about.  Read more here: https://stackoverflow.com/questions/8096313/no-visible-binding-for-global-variable-note-in-r-cmd-check
+* Added a `README.md` file for GitHub.  This package is now on GitHub at: https://github.com/ledell/cvAUC
 
 
 cvAUC 1.0.2 (11-17-2014)

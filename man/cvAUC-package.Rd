@@ -10,8 +10,8 @@ This package contains various tools for working with and evaluating cross-valida
 \tabular{ll}{
 Package: \tab cvAUC\cr
 Type: \tab Package\cr
-Version: \tab 1.0.2\cr
-Date: \tab 2014-11-17\cr
+Version: \tab 1.1.0\cr
+Date: \tab 2014-12-07\cr
 License: \tab Apache License (== 2.0)\cr
 }
 See the help files for the following functions for more information:
@@ -19,7 +19,7 @@ See the help files for the following functions for more information:
 \code{\link{cvAUC}}, \code{\link{ci.cvAUC}}, \code{\link{ci.pooled.cvAUC}}
 }
 \author{
-Erin LeDell, Maya Peterson, Mark van der Laan
+Erin LeDell, Maya Petersen, Mark van der Laan
 
 Maintainer: Erin LeDell <ledell@berkeley.edu>
 }
@@ -33,7 +33,7 @@ Tobias Sing, Oliver Sander, Niko Beerenwinkel, and Thomas Lengauer. ROCR: Visual
 }
 
 \note{
-This work was supported by the Doris Duke Charitable Foundation Grant #: 2011042
+This work was supported by the Doris Duke Charitable Foundation Grant No. 2011042
 }
 
 \seealso{
