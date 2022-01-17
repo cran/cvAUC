@@ -43,17 +43,15 @@ A list containing the following named elements:
 
 }
 \references{
-LeDell, Erin; Petersen, Maya L.; and van der Laan, Mark J., ``Computationally Efficient Confidence Intervals for Cross-validated Area Under the ROC Curve Estimates.''  (December 2012). U.C. Berkeley Division of Biostatistics Working Paper Series. Working Paper 304. \cr
-\url{http://biostats.bepress.com/ucbbiostat/paper304}
 
+LeDell, Erin; Petersen, Maya; van der Laan, Mark. Computationally efficient confidence intervals for cross-validated area under the ROC curve estimates. Electron. J. Statist. 9 (2015), no. 1, 1583--1607. doi:10.1214/15-EJS1035. \url{http://projecteuclid.org/euclid.ejs/1437742107}.
 
 M. J. van der Laan and S. Rose. Targeted Learning: Causal Inference for Observational and Experimental Data. Springer Series in Statistics. Springer, first edition, 2011.
-
 
 Tobias Sing, Oliver Sander, Niko Beerenwinkel, and Thomas Lengauer. ROCR: Visualizing classifier performance in R. Bioinformatics, 21(20):3940-3941, 2005.
 }
 \author{
-Erin LeDell \email{ledell@berkeley.edu}
+Erin LeDell \email{oss@ledell.org}
 
 Maya Petersen \email{mayaliv@berkeley.edu}
 
@@ -77,15 +75,15 @@ Mark van der Laan \email{laan@berkeley.edu}
 # contained within the save CV fold.
 
 
-pooled_example <- function(data, ids, V=10){
+pooled_example <- function(data, ids, V = 10){
 
   .cvFolds <- function(Y, V, ids){
     #Stratify by outcome & id
-    classes <- tapply(1:length(Y), INDEX=Y, FUN=split, 1)
+    classes <- tapply(1:length(Y), INDEX = Y, FUN = split, 1)
     ids.Y1 <- unique(ids[classes$`1`])  #ids that contain an observation with Y==1
     ids.noY1 <- setdiff(unique(ids), ids.Y1)  #ids that have no Y==1 obvervations
-    ids.Y1.split <- split(sample(length(ids.Y1)), rep(1:V, length=length(ids.Y1)))
-    ids.noY1.split <- split(sample(length(ids.noY1)), rep(1:V, length=length(ids.noY1)))  
+    ids.Y1.split <- split(sample(length(ids.Y1)), rep(1:V, length = length(ids.Y1)))
+    ids.noY1.split <- split(sample(length(ids.noY1)), rep(1:V, length = length(ids.noY1)))  
     folds <- vector("list", V)
     for (v in seq(V)){
       idx.Y1 <- which(ids \%in\% ids.Y1[ids.Y1.split[[v]]])
@@ -95,15 +93,15 @@ pooled_example <- function(data, ids, V=10){
     return(folds)
   }
   .doFit <- function(v, folds, data){  #Train/test glm for each fold
-    fit <- glm(Y~., data=data[-folds[[v]],], family=binomial)
-    pred <- predict(fit, newdata=data[folds[[v]],], type="response")
+    fit <- glm(Y~., data = data[-folds[[v]],], family = binomial)
+    pred <- predict(fit, newdata = data[folds[[v]],], type = "response")
     return(pred)
   }
-  folds <- .cvFolds(Y=data$Y, ids=ids, V=V)  #Create folds
-  predictions <- unlist(sapply(seq(V), .doFit, folds=folds, data=data))  #CV train/predict
+  folds <- .cvFolds(Y = data$Y, ids = ids, V = V)  #Create folds
+  predictions <- unlist(sapply(seq(V), .doFit, folds = folds, data = data))  #CV train/predict
   predictions[unlist(folds)] <- predictions  #Re-order fold indices
-  out <- ci.pooled.cvAUC(predictions=predictions, labels=data$Y, 
-  folds=folds, ids=ids, confidence=0.95)
+  out <- ci.pooled.cvAUC(predictions = predictions, labels = data$Y, 
+                         folds = folds, ids = ids, confidence = 0.95)
   return(out)
 }
 
@@ -115,7 +113,8 @@ data(adherence)
 
 # Get performance
 set.seed(1)
-out <- pooled_example(data=subset(adherence, select=-c(id)), ids=adherence$id, V=10)
+out <- pooled_example(data = subset(adherence, select=-c(id)), 
+                      ids = adherence$id, V = 10)
 
 
 # The output is given as follows:

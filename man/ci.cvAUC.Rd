@@ -39,15 +39,14 @@ A list containing the following named elements:
 }
 \references{
 
-LeDell, Erin; Petersen, Maya L.; and van der Laan, Mark J., ``Computationally Efficient Confidence Intervals for Cross-validated Area Under the ROC Curve Estimates.''  (December 2012). U.C. Berkeley Division of Biostatistics Working Paper Series. Working Paper 304.\cr
-\url{http://biostats.bepress.com/ucbbiostat/paper304}
+LeDell, Erin; Petersen, Maya; van der Laan, Mark. Computationally efficient confidence intervals for cross-validated area under the ROC curve estimates. Electron. J. Statist. 9 (2015), no. 1, 1583--1607. doi:10.1214/15-EJS1035. \url{http://projecteuclid.org/euclid.ejs/1437742107}.
 
 M. J. van der Laan and S. Rose. Targeted Learning: Causal Inference for Observational and Experimental Data. Springer Series in Statistics. Springer, first edition, 2011.
 
 Tobias Sing, Oliver Sander, Niko Beerenwinkel, and Thomas Lengauer. ROCR: Visualizing classifier performance in R. Bioinformatics, 21(20):3940-3941, 2005.
 }
 \author{
-Erin LeDell \email{ledell@berkeley.edu}
+Erin LeDell \email{oss@ledell.org}
 
 Maya Petersen \email{mayaliv@berkeley.edu}
 
@@ -77,25 +76,26 @@ Mark van der Laan \email{laan@berkeley.edu}
 # The outcome vector, Y, is the labels argument. 
 
 
-iid_example <- function(data, V=10){
+iid_example <- function(data, V = 10){
 
   .cvFolds <- function(Y, V){  #Create CV folds (stratify by outcome)
-    Y0 <- split(sample(which(Y==0)), rep(1:V, length=length(which(Y==0))))
-    Y1 <- split(sample(which(Y==1)), rep(1:V, length=length(which(Y==1))))
+    Y0 <- split(sample(which(Y==0)), rep(1:V, length = length(which(Y==0))))
+    Y1 <- split(sample(which(Y==1)), rep(1:V, length = length(which(Y==1))))
     folds <- vector("list", length=V)
     for (v in seq(V)) {folds[[v]] <- c(Y0[[v]], Y1[[v]])}		
     return(folds)
   }
   .doFit <- function(v, folds, data){  #Train/test glm for each fold
-    fit <- glm(Y~., data=data[-folds[[v]],], family=binomial)
-    pred <- predict(fit, newdata=data[folds[[v]],], type="response")
+    fit <- glm(Y~., data = data[-folds[[v]],], family = binomial)
+    pred <- predict(fit, newdata = data[folds[[v]],], type = "response")
     return(pred)
   }
-  folds <- .cvFolds(Y=data$Y, V=V)  #Create folds
-  predictions <- unlist(sapply(seq(V), .doFit, folds=folds, data=data))  #CV train/predict
+  folds <- .cvFolds(Y = data$Y, V = V)  #Create folds
+  predictions <- unlist(sapply(seq(V), .doFit, folds = folds, data = data))  #CV train/predict
   predictions[unlist(folds)] <- predictions  #Re-order pred values
   # Get CV AUC and confidence interval
-  out <- ci.cvAUC(predictions=predictions, labels=data$Y, folds=folds, confidence=0.95)
+  out <- ci.cvAUC(predictions = predictions, labels = data$Y, 
+                  folds = folds, confidence = 0.95)
   return(out)
 }
 
@@ -106,7 +106,7 @@ data(admissions)
 
 # Get performance
 set.seed(1)
-out <- iid_example(data=admissions, V=10) 
+out <- iid_example(data = admissions, V = 10) 
 
 
 # The output is given as follows:

@@ -23,10 +23,10 @@ The value returned is the Area Under the ROC Curve (AUC).
 }
 \references{
 References to the underlying ROCR code, used to calculate area under the ROC curve, can be found on the ROCR homepage at:
- \url{http://rocr.bioinf.mpi-sb.mpg.de}
+ \url{https://ipa-tys.github.io/ROCR/}
 }
 \author{
-Erin LeDell \email{ledell@berkeley.edu}
+Erin LeDell \email{oss@ledell.org}
 }
 
 \seealso{
@@ -34,6 +34,7 @@ Erin LeDell \email{ledell@berkeley.edu}
 }
 \examples{
 library(cvAUC)
+library(ROCR)  #load example data
 
 data(ROCR.simple)
 auc <- AUC(ROCR.simple$predictions, ROCR.simple$labels)
